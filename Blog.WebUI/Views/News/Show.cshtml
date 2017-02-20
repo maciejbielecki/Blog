@@ -1,0 +1,58 @@
+﻿@model Blog.WebUI.Models.NewsViewModel
+@{
+    ViewBag.Title = "Start";
+}
+
+
+
+@foreach (var p in Model.News)
+{
+    <div class="row post-container">
+        <div class="col-lg-6 col-md-6 img-responsive photo" style="margin-top:20px">
+            <a href="/News/ShowPost?id=@p.NewsID">
+                <div class="zoomin image">
+                    <img class="img-rounded" width=100% src="@Url.Action("GetImage", "News",new { @p.NewsID })" alt="Brak obrazka" />
+                </div>
+            </a>
+        </div>
+        
+        <div class="col-lg-6 col-md-6" style="margin-top:15px; border-left: 1px solid #CCC;">
+            <div id="category">
+                    @Html.RouteLink(@p.Category, new
+                    {
+                        controller = "News",
+                        action = "Show",
+                        category = @p.Category,
+                        page = 1
+                    },
+                   new
+                   {
+                       @class = @p.Category == ViewBag.SelectedCategory ? "selected" : null
+                   }
+                   )
+            </div>
+            <div class="title">@Html.ActionLink(@p.NewsTitle, "ShowPost", "News", new { id = @p.NewsID }, null)</div>
+            <div class="row">
+                <div class="writer col-lg-6 col-xs-6">@p.Writer</div><div class="date col-lg-6 col-xs-6">@p.Date</div>
+            </div>
+            <div class="intro">
+                @p.Intro;
+            </div>
+        </div>
+    </div>
+    
+}
+
+<div class="pager col-lg-12">
+    <ul>
+        @{
+            int page = Model.PagingInfo.TotalItems;
+            if (page >= 6)
+            {
+              @Html.PageLinks(Model.PagingInfo, x => Url.Action("Show", new { page = x, category = Model.CurrentCategory }))
+            }
+            }
+
+    </ul>
+</div>
+

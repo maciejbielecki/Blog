@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Admin.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <style>
+        a {text-decoration:none;color:black;}
+        a:hover{text-decoration:none;color:red;}
+        textarea{min-height:200px;min-width:500px;}
+        .noresize{resize: none;}
+        h3{color:green;}
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        @if(TempData["message"] != null)
+        {
+            <div class="message"><h3>@TempData["message"]</h3></div>
+        }
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

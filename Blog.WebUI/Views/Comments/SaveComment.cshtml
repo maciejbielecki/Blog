@@ -1,0 +1,45 @@
+﻿@model Blog.Domain.Entities.Comment
+
+
+<script>
+    $("input").click(function () {
+        $("#com").load('@Url.Action("SaceComment", "Comments", new { id = @Model.CNewsID})');
+    })
+</script>
+
+@using (Html.BeginForm("SaveComment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        //@Html.ValidationSummary()
+
+        <input id="CommentID" name="CommentID" type="hidden" value="0" />
+        <input id="CNewsID" name="CNewsID" type="hidden" value="@Model.CNewsID" />
+
+    <div class="row marg">
+        <div class="editor-label col-lg-3 toRight"><label for="Signature">Podpis:</label></div>
+        <div class="editor-field col-lg-8"><input class="text-box single-line form-control" id="Signature" name="Signature" type="text" value="" /> </div>
+    </div>
+
+    <div class="row marg">
+        <div class="editor-label col-lg-3 toRight"><label for="CommentText">Treść komentarza:</label></div>
+        <div class="editor-field col-lg-8">
+            <textarea class="form-control" id="CommentText" name="CommentText" ROWS="6" style="width:100%"></textarea>
+        </div>
+    </div>
+
+    <div class="row marg">
+        <div class="editor-label col-lg-3 toRight"><label for="Email">Email:</label></div>
+        <div class="editor-field col-lg-8"><input class="text-box single-line form-control" id="Email" name="Email" type="text" value="" /> </div>
+      </div>  
+     <div class="row marg">
+            <div class="editor-label col-lg-3 toRight"><label for="WebSite">Strona internetowa:</label></div>
+            <div class="editor-field col-lg-8"><input class="text-box single-line form-control" id="WebSite" name="WebSite" type="text" value="" /> </div>
+            <input id="CommentDate" name="CommentDate" type="hidden" value="@DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")" />
+    </div>
+
+    <div class="row col-lg-12 marg" style="text-align:right">
+        <input class="btn btn-default send" type="submit" value="Dodaj komentarz" />
+    </div>
+
+
+}
+

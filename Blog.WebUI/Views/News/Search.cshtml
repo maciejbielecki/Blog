@@ -1,0 +1,12 @@
+﻿
+@using (Html.BeginForm("Search", "News", FormMethod.Post, new { input = "multipart/form-data" }))
+{
+<div class="input-group" style="width:100%;">
+    <div class="input-group">
+        <input type="text" class="form-control" name="input" id="input" placeholder="Search for...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">Go!</button>
+        </span>
+    </div>
+</div>
+}

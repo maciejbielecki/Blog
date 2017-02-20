@@ -1,0 +1,36 @@
+﻿@model Blog.WebUI.Models.CommentViewModel
+
+
+
+<h3>Komentarzy (@Model.Comment.Count()) </h3>
+
+@foreach (var c in Model.Comment)
+{
+    string text = @c.CommentText;
+    <div class="col-lg-12" id="com">
+        <div class="post-container">
+        <div class="row">
+            <div class="col-lg-6 writer">@c.Signature</div>
+            <div class="col-lg-6">@c.CommentDate</div>
+            <hr />
+        </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>@c.CommentText</p>
+                </div>
+                <hr />
+            </div>
+            <div class="row">
+                <div class="col-lg-12 date">
+                    @{
+                        if (@c.CommentText.Length > 150)
+                        {
+                            @c.WebSite
+                        }
+
+                    } 
+                </div>
+            </div>
+            </div>
+    </div>
+}

@@ -1,0 +1,57 @@
+﻿@model Blog.WebUI.Models.NewsViewModel
+
+
+@foreach (var p in Model.News)
+{
+
+    {
+
+        ViewBag.Title = Html.Raw(@p.NewsTitle);
+    }
+
+    <div class="post-container col-lg-12">
+       
+    
+        <div class="row">
+            <div class="category col-lg-12">
+                    @Html.RouteLink(@p.Category, new
+               {
+                   controller = "News",
+                   action = "Show",
+                   category = @p.Category,
+                   page = 1
+               },
+     new
+     {
+         @class = @p.Category == ViewBag.SelectedCategory ? "selected" : null
+     }
+     )
+            </div>
+        </div>
+        <div class="row">
+            <div class="title col-lg-12">@Html.Raw(WebUtility.HtmlDecode(p.NewsTitle))</div>
+        </div>
+        <div class="row">
+            <div class="writer col-lg-6 col-md-6">@p.Writer</div>     
+            <div class="date col-lg-6 col-md-6">@p.Date</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <img width=100% src="@Url.Action("GetImage", "News", new { @p.NewsID })" alt="Brak obrazka" />
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-lg-12 text">@Html.Raw(@WebUtility.HtmlDecode(p.Text))</div>
+        </div>
+        </div>
+        <div class="row post-container col-lg-12">
+            @{Html.RenderAction("SaveComment", "Comments", new { Id = @p.NewsID }); }
+            @{Html.RenderAction("ShowComments", "Comments", new { Id = @p.NewsID}); }
+        </div>   
+
+
+
+}
+
+
+        

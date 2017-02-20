@@ -1,0 +1,91 @@
+﻿@model Blog.Domain.Entities.News
+
+@{
+    ViewBag.Title = "Administracja: edycja " + Model.NewsTitle;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container">
+    <h1>Edycja: @Model.NewsTitle</h1>
+
+
+    @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <input id="NewsID" name="NewsID" type="hidden" value="@Model.NewsID" />
+
+        <div class="row">
+            <div class="editor-label col-lg-1"><label for="Visible">Visible</label></div>
+            <div class="editor-label col-lg-2"><label for="Category">Category</label></div>
+            <div class="editor-label col-lg-2"><label for="Date">Date</label></div>
+            <div class="editor-label col-lg-2"><label for="Writer">Writer</label></div>
+        </div>
+
+        <div class="row">
+            <div class="editor-field col-lg-1"><input checked="@Model.Visible" class="check-box" id="Visible" name="Visible" type="checkbox" value="true" /><input name="Visible" type="hidden" value="false" /></div>
+            <div class="editor-field col-lg-2">
+                <select id="Category" name="Category" value="@Model.Category">
+                    <option @if (@Model.Category == "kategoria1"){ Write("selected='selected'"); }>kategoria1</option>
+                    <option @if (@Model.Category == "kategoria2"){ Write("selected='selected'"); }>kategoria2</option>
+                    <option @if (@Model.Category == "kategoria3"){ Write("selected='selected'"); }>kategoria3</option>
+                    <option @if (@Model.Category == "kategoria4"){ Write("selected='selected'"); }>kategoria4</option>
+                    <option @if (@Model.Category == "kategoria5"){ Write("selected='selected'"); }>kategoria5</option>
+                </select>
+            </div>
+            <div class="editor-field col-lg-2">
+                <input id="Date" name="Date" type="text"
+                       value="@if (@Model.Date == null) {@DateTime.Now.ToString("dd.MM.yyyy HH:mm"); } else { @Model.Date} " />
+            </div>
+            <div class="editor-field col-lg-2"><input class="text-box single-line" id="Writer" name="Writer" type="text" value="@Model.Writer" /> </div>
+        </div>
+
+        <div class="row">
+            <div class="editor-label col-lg-6"><label for="Tytuł">NewsTitle</label></div> 
+            <div class="editor-label col-lg-6"><label for="Intro">Wstęp</label></div>            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <textarea class="form-control horizontal" id="NewsTitle" name="NewsTitle">
+                    @WebUtility.HtmlDecode(Model.NewsTitle)
+                </textarea>
+            </div>
+            <div class="col-lg-6">
+                <textarea class="form-control horizontal" id="Intro" name="Intro">
+                    @WebUtility.HtmlDecode(Model.Intro)
+                </textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="editor-label col-lg-12"><label for="Text">Text</label></div>
+            <div class="editor-field col-lg-12">
+                <textarea class="text-box multi-line" id="Text" name="Text">
+                    @WebUtility.HtmlDecode(Model.Text)
+                </textarea>
+            </div>
+        </div>
+        <script type="text/javascript">
+            CKEDITOR.replace('Text');
+        </script>
+
+        <div class="row">
+            <div class="editor-label col-lg-12">Zdjęcie</div>
+            <div class="editor-field col-lg-12">
+                @if (Model.ImageData == null)
+                {
+                    @:Brak
+            }
+                else
+                {
+                    <img width="50%" src="@Url.Action("GetImage", "News", new {Model.NewsID})" />
+                }
+                <div>Prześlij nowe zdjęcie: <input type="file" name="Image" /></div>
+            </div>
+        </div>
+
+        <input type="submit" value="Zapisz" />
+
+        @Html.ActionLink("Anuluj i wróć do listy ", "Index")
+    }
+
+</div>

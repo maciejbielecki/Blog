@@ -1,0 +1,24 @@
+﻿@model IEnumerable<string>
+<div class="post-container col-lg-12 col-md-12" style="font-family: 'Audiowide', cursive;">
+    @{Html.RenderAction("Search", "News");}
+
+    <h3>Kategorie</h3>
+    @foreach (var link in Model)
+    {
+
+        @Html.RouteLink(link + " ", new
+   {
+       controller = "News",
+       action = "Show",
+       category = link,
+       page = 1
+   },
+           new
+           {
+               @class = link == ViewBag.SelectedCategory ? "selected" : null
+           }
+   )
+
+    }
+    
+</div>

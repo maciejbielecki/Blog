@@ -1,0 +1,25 @@
+﻿@model Blog.WebUI.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Administracja: logowanie";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+        <div style="text-align:center;">
+            @Html.ValidationSummary(true)
+        </div>
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
+                <h1>Login to Your Account</h1><br>
+                <input type="text" id="UserName" name="UserName" placeholder="Username">
+                <input type="password" id="Password" name="Password" placeholder="Password">
+                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+            </div>
+        </div>
+
+
+
+        }
+
